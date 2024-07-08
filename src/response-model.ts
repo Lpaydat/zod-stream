@@ -11,7 +11,12 @@ import {
   OAIBuildToolFunctionParams,
 } from "@/oai/params";
 
-import { Mode, ModeParamsReturnType } from "./types";
+import {
+  Mode,
+  ModeParamsReturnType,
+  ResponseModel,
+  ResponseSchema,
+} from "./types";
 
 function buildDefinition<T>(
   name: string,
@@ -90,8 +95,8 @@ function buildParams<
 
 // Define a union type for response_model
 type ResponseModelUnion<T extends z.AnyZodObject> =
-  | { name: string; schema: T; description?: string }
-  | { name: string; schema: any; description?: string };
+  | ResponseModel<T>
+  | ResponseSchema;
 
 export function withResponseModel<
   T extends z.AnyZodObject,

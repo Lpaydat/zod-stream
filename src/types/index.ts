@@ -91,14 +91,45 @@ export type JsonSchemaParamsReturnType<
 export type ModeParamsReturnType<
   T extends OpenAI.ChatCompletionCreateParams,
   M extends Mode
-> = M extends typeof MODE.FUNCTIONS
-  ? FunctionParamsReturnType<T>
-  : M extends typeof MODE.TOOLS
-  ? ToolFunctionParamsReturnType<T>
-  : M extends typeof MODE.JSON
-  ? JsonModeParamsReturnType<T>
-  : M extends typeof MODE.JSON_SCHEMA
-  ? JsonSchemaParamsReturnType<T>
-  : M extends typeof MODE.MD_JSON
-  ? MessageBasedParamsReturnType<T>
-  : MessageBasedParamsReturnType<T>;
+> = ReturnType<typeof getModeParamsReturnType<T, M>>;
+
+// Helper function to determine ModeParamsReturnType
+function getModeParamsReturnType<
+  T extends OpenAI.ChatCompletionCreateParams,
+  M extends Mode
+>(params: T, mode: M) {
+  const baseParams = { ...params };
+
+  switch (mode) {
+    case MODE.FUNCTIONS:
+      return {
+        ...baseParams,
+        function_call: {} as OpenAI.ChatCompletionFunctionCallOption,
+        functions: [] as OpenAI.FunctionDefinition[],
+      };
+    case MODE.TOOLS:
+      return {
+        ...baseParams,
+        tool_choice: {} as OpenAI.ChatCompletionToolChoiceOption,
+        tools: [] as OpenAI.ChatCompletionTool[],
+      };
+    case MODE.JSON:
+      return {
+        ...baseParams,
+        response_format: { type: "json_object" },
+        messages: [] as OpenAI.ChatCompletionMessageParam[],
+      };
+    case MODE.JSON_SCHEMA:
+      return {
+        ...baseParams,
+        response_format: {
+          type: "json_object",
+          schema: {} as JsonSchema7Type,
+        },
+        messages: [] as OpenAI.ChatCompletionMessageParam[],
+      };
+    case MODE.MD_JSON:
+    default:
+      return baseParams;
+  }
+}
