@@ -23,7 +23,7 @@
   "scripts": {
     "test": "bun test --coverage --verbose",
     "build": "tsup",
-    "prepare": "tsup",
+    "install": "tsup",
     "dev": "tsup --watch",
     "lint": "TIMING=1 eslint src/**/*.ts* --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
