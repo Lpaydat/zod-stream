@@ -22,7 +22,7 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "test": "bun test --coverage --verbose",
-    "build": "tsup",
+    "build": "tsup src/index.ts --minify --format cjs,esm --dts --out-dir dist",
     "prepare": "npm run build",
     "install": "npm run build",
     "dev": "tsup --watch",
