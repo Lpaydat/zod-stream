@@ -1,13 +1,37 @@
 {
-  "extends": "@repo/typescript-config/pub.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "./",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "baseUrl": "."
+    "baseUrl": ".",
+    "strict": false,
+    "strictNullChecks": true,
+    "noEmit": true,
+    "allowJs": true,
+    "lib": ["es2020", "dom"],
+    "module": "esnext",
+    "target": "es2020",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "tsBuildInfoFile": "tsconfig.tsbuildinfo"
   },
-  "include": ["tests", "src", "turbo", "tsup.config.ts", "examples"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "tests",
+    "src",
+    "turbo",
+    "tsup.config.ts",
+    "examples",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["node_modules", "dist", ".eslintrc.cjs"]
 }
