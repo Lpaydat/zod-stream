@@ -17,12 +17,13 @@
     }
   },
   "files": [
-    "dist/**"
+    "dist/**",
+    "src/**"
   ],
   "typings": "./dist/index.d.ts",
   "scripts": {
     "test": "bun test --coverage --verbose",
-    "build": "tsup src/index.ts --minify --format cjs,esm --dts --out-dir dist",
+    "build": "tsup",
     "prepare": "npm run build",
     "install": "npm run build",
     "dev": "tsup --watch",
