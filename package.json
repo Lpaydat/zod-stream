@@ -59,7 +59,7 @@
     "@types/node": "^20.5.2",
     "@types/eslint": "^8.44.7",
     "eslint": "^8.53.0",
-    "tsup": "^8.0.1",
+    "tsup": "6.5.0",
     "typescript": "^5.2.2",
     "ramda": "^0.29.0",
     "zod": "3.22.4"
