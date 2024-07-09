@@ -1,6 +1,6 @@
-import { defineConfig } from "tsup"
+import { defineConfig } from "tsup";
 
-export default defineConfig(options => {
+export default defineConfig((options) => {
   return {
     splitting: true,
     sourcemap: true,
@@ -11,6 +11,6 @@ export default defineConfig(options => {
     clean: true,
     dts: true,
     external: ["openai", "zod", "openai/streaming"],
-    ...options
-  }
-})
+    ...options,
+  };
+});

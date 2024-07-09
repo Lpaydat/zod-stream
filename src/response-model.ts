@@ -98,6 +98,12 @@ type ResponseModelUnion<T extends z.AnyZodObject> =
   | ResponseModel<T>
   | ResponseSchema;
 
+function isResponseModel<T extends z.AnyZodObject>(
+  model: ResponseModelUnion<T>
+): model is ResponseModel<T> {
+  return (model as ResponseModel<T>).schema !== undefined;
+}
+
 export function withResponseModel<
   T extends z.AnyZodObject,
   M extends Mode,
@@ -111,13 +117,19 @@ export function withResponseModel<
   mode: M;
   params: P;
 }): ModeParamsReturnType<P, M> {
-  const { name, schema, description = "" } = response_model;
+  const { name, description = "" } = response_model;
 
   let definition;
-  if (schema instanceof z.ZodType) {
+  if (isResponseModel(response_model)) {
+    const { schema } = response_model;
     definition = buildDefinition(name, schema, description, true);
   } else {
-    definition = buildDefinition(name, schema, description, false);
+    definition = buildDefinition(
+      name,
+      response_model.schema,
+      description,
+      false
+    );
   }
 
   return buildParams(definition, mode, params);
